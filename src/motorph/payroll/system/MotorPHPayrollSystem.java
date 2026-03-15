@@ -154,24 +154,15 @@ public class MotorPHPayrollSystem {
 
     public static void main(String[] args) {
         Scanner inputScanner = new Scanner(System.in);
-
-        /*
-        Step 1:
-        Ask the user for the CSV file path and load all employee/attendance data.
-        If the file cannot be read properly, the program stops immediately.
-        */
         
         System.out.println("=== MotorPH Basic Payroll System ===");
-        System.out.print("Enter CSV file path (example: motorph_data.csv): ");
-        String csvFilePath = inputScanner.nextLine().trim();
-
-        if (!loadCsvData(csvFilePath)) {
+        if (!loadCsvData()){
             System.out.println("Program terminated due to CSV read error.");
             return;
         }
 
         /*
-        Step 2:
+        Step 1:
         Ask the user for login credentials.
         If the username or password is incorrect, the program stops.
         */
@@ -183,7 +174,7 @@ public class MotorPHPayrollSystem {
         }
 
         /*
-        Step 3:
+        Step 2:
         Display the correct menu based on the user's role.
         */
         if (currentLoggedInRole.equals(EMPLOYEE_USERNAME)) {
@@ -237,7 +228,7 @@ public class MotorPHPayrollSystem {
     1. Enter their employee number and view payroll details
     2. Exit the program
     */
-  
+
     static void showEmployeeMenu(Scanner inputScanner) {
         while (true) {
             System.out.println(" ");
@@ -609,7 +600,10 @@ public class MotorPHPayrollSystem {
     
     It also checks whether the first row is a header row.
     */
-    static boolean loadCsvData(String filePath) {
+    static boolean loadCsvData() {
+        
+        String filePath = "motorph_data.csv";
+        
         try (BufferedReader csvReader = new BufferedReader(new FileReader(filePath))) {
 
             String currentLine = csvReader.readLine();
